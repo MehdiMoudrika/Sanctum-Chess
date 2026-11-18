@@ -1,0 +1,418 @@
+:root {
+  /* Material Design 3 Dark Minimalist Palette */
+  --md-bg: #0a0b10;
+  --md-surface: rgba(20, 22, 30, 0.76);
+  --md-surface-container: rgba(28, 31, 42, 0.84);
+  --md-surface-high: rgba(42, 46, 62, 0.92);
+  --md-primary: #b8e8ff;
+  --md-on-primary: #003549;
+  --md-secondary: #e5c39b;
+  --md-tertiary: #7ef8d6;
+  --md-on-tertiary: #00382a;
+  --md-error: #ffb4ab;
+  --md-on-surface: #e4e6ef;
+  --md-on-surface-variant: #9ba1b3;
+  --md-outline: rgba(255, 255, 255, 0.11);
+  --md-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --md-radius-pill: 9999px;
+  --md-radius-lg: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--md-bg);
+  color: var(--md-on-surface);
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+}
+
+#canvas-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Subtle Cathedral Atmospheric Vignette */
+.vignette-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 58%, rgba(5, 6, 10, 0.72) 100%);
+}
+
+/* Top Minimalist Status Bar */
+.m3-top-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 20px;
+  background: var(--md-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius-pill);
+  box-shadow: var(--md-shadow);
+  max-width: 95vw;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.14em;
+  color: var(--md-primary);
+}
+
+.divider-v {
+  width: 1px;
+  height: 22px;
+  background: var(--md-outline);
+  flex-shrink: 0;
+}
+
+.turn-chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--md-on-surface);
+}
+
+.crystal-indicator {
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  transition: all 0.35s ease;
+}
+
+.crystal-indicator.diamond {
+  background: linear-gradient(135deg, #ffffff 0%, #c084fc 100%);
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.9);
+}
+
+.crystal-indicator.quartz {
+  background: linear-gradient(135deg, #fde047 0%, #d97706 100%);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
+}
+
+.state-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: var(--md-radius-pill);
+  background: rgba(184, 232, 255, 0.12);
+  color: var(--md-primary);
+  transition: all 0.25s ease;
+}
+
+.state-badge.alert {
+  background: rgba(255, 180, 171, 0.2);
+  color: var(--md-error);
+  box-shadow: 0 0 16px rgba(255, 180, 171, 0.3);
+}
+
+.captured-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--md-on-surface-variant);
+}
+
+.shard-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.shard-count.diamond-text {
+  color: var(--md-primary);
+}
+
+.shard-count.quartz-text {
+  color: var(--md-secondary);
+}
+
+/* Single-Level Bottom Navigation Bar (Material Design 3) */
+.m3-bottom-nav {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--md-surface-container);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius-pill);
+  box-shadow: var(--md-shadow);
+  max-width: 96vw;
+  overflow-x: auto;
+}
+
+.m3-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: var(--md-radius-pill);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s cubic-bezier(0.2, 0, 0, 1),
+              color 0.2s cubic-bezier(0.2, 0, 0, 1),
+              transform 0.15s ease,
+              border-color 0.2s ease;
+}
+
+.m3-nav-btn .material-symbols-rounded {
+  font-size: 19px;
+}
+
+.m3-nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--md-on-surface);
+}
+
+.m3-nav-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.m3-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.m3-nav-btn.active {
+  background: rgba(184, 232, 255, 0.16);
+  color: var(--md-primary);
+  border-color: rgba(184, 232, 255, 0.32);
+}
+
+/* Highlighted M3 Extended FAB for Suggested Best Move */
+.m3-nav-btn.best-move-fab {
+  background: linear-gradient(135deg, #7ef8d6 0%, #82d4ff 100%);
+  color: var(--md-on-tertiary);
+  font-weight: 700;
+  padding: 0 18px;
+  box-shadow: 0 4px 18px rgba(126, 248, 214, 0.28);
+}
+
+.m3-nav-btn.best-move-fab:hover:not(:disabled) {
+  filter: brightness(1.06);
+  box-shadow: 0 6px 24px rgba(126, 248, 214, 0.45);
+  color: var(--md-on-tertiary);
+}
+
+.m3-nav-btn.icon-only {
+  width: 40px;
+  padding: 0;
+}
+
+/* Suggested Best Move Floating Snackbar Chip */
+.m3-hint-banner {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 8px 18px;
+  background: var(--md-surface-high);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(126, 248, 214, 0.42);
+  border-radius: var(--md-radius-pill);
+  box-shadow: var(--md-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.2, 0, 0, 1);
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+
+.m3-hint-banner.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.hint-icon {
+  color: var(--md-tertiary);
+  font-size: 20px;
+}
+
+.hint-play-btn {
+  border: none;
+  background: var(--md-tertiary);
+  color: var(--md-on-tertiary);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--md-radius-pill);
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.hint-play-btn:hover {
+  filter: brightness(1.08);
+  transform: scale(1.03);
+}
+
+.hint-dismiss-btn {
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hint-dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--md-on-surface);
+}
+
+/* Minimalist M3 Dialog Modals (Pawn Promotion & Game Over) */
+.m3-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(6, 7, 11, 0.68);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.m3-modal-backdrop.open {
+  display: flex;
+}
+
+.m3-dialog {
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius-lg);
+  padding: 28px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--md-shadow);
+}
+
+.m3-dialog-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--md-primary);
+  margin-bottom: 8px;
+}
+
+.m3-dialog-subtitle {
+  font-size: 0.86rem;
+  color: var(--md-on-surface-variant);
+  margin-bottom: 20px;
+  line-height: 1.45;
+}
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.promo-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--md-outline);
+  border-radius: 16px;
+  padding: 14px 8px;
+  color: var(--md-on-surface);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.promo-card:hover {
+  background: rgba(184, 232, 255, 0.14);
+  border-color: var(--md-primary);
+  transform: translateY(-2px);
+}
+
+.promo-symbol {
+  font-size: 1.65rem;
+}
+
+.promo-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .m3-nav-btn span.btn-label {
+    display: none;
+  }
+  .m3-nav-btn.best-move-fab span.btn-label {
+    display: inline;
+  }
+  .m3-nav-btn {
+    padding: 0 11px;
+  }
+  .captured-summary {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "appId": "com.sanctum.chess3d",
+  "appName": "Sanctum Chess",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "Preferences": {},
+    "Haptics": {}
+  }
+}

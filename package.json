@@ -1,0 +1,21 @@
+{
+  "name": "sanctum-chess-android",
+  "version": "1.0.3",
+  "description": "Sanctum Chess 3D - Android (Capacitor)",
+  "main": "index.html",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "build": "npx cap sync android",
+    "build:apk": "node scripts/build-apk.js",
+    "android": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/preferences": "^6.0.0",
+    "@capacitor/haptics": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  }
+}
